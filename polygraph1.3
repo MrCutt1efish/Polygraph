@@ -1,0 +1,44 @@
+#!/bin/bash
+clear
+echo "Please enter min and max for x"
+read xmin
+read xmax
+echo "Please enter min and max for y"
+read ymin
+read ymax
+clear
+function eq() {
+   local eqval=$((($1 ** 2) - 2))
+   echo $eqval
+}
+for y in $(seq $ymin $ymax); do
+   n=$(($y - $ymin))
+   for x in $(seq $xmin $xmax); do
+      if [ $(eq $x) -eq $y ] ; then
+         eval "yarr$n+=(+)"
+      else
+         eval "yarr$n+=(.)" 
+      fi
+   done
+done
+for i in $(seq $ymax -1  $ymin); do
+   n=$(($i - $ymin))
+   if [ $i -lt 0 ] || [ $i -gt 9 ]; then
+      p=$i
+   else
+      p=" "$i
+   fi
+   echo "$p" $(eval echo "\${yarr$n[*]}")
+done
+for i in $(seq $xmin $xmax); do
+   if (test $i -lt 0 || test $i -gt 9); then
+      q="" #set as -, but ruins evenness
+      abs=$(($i * -1))
+   else
+      q=""
+      abs=$i
+   fi
+   xarr+=("$q$abs")
+done
+
+echo "   ""${xarr[*]}"
