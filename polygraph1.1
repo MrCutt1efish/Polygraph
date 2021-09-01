@@ -1,0 +1,34 @@
+#!/bin/bash
+clear
+echo "Please enter min and max for x"
+read xmin
+read xmax
+echo "Please enter min and max for y"
+read ymin
+read ymax
+clear
+arr1=()
+for i in $(seq $xmin $xmax); do
+yarr1+=(." ")
+done
+for i in $(seq $ymax -1  $ymin); do
+if (test $i -lt 0 || test $i -gt 9); then
+p=$i
+else
+p=" "$i
+fi
+echo "$p" "${yarr1[*]}"
+done
+xarr=()
+#if (test $xmin -lt 0
+for i in $(seq $xmin $xmax); do
+if (test $i -lt 0 || test $i -gt 9); then
+q=""
+else
+q=" "
+fi
+
+xarr+=("$q$i")
+done
+
+echo "  ""${xarr[*]}"
